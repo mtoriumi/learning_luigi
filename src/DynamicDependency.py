@@ -26,7 +26,7 @@ class OpenNopTask(luigi.Task):
 
 class NopTask(luigi.Task):
     """
-    openすらしないタスク（ファイルが作られないので無限ループ）
+    Openすらしないタスク（ファイルが作られないので無限ループ）
     """
     def output(self):
         return luigi.LocalTarget('./data/Dynamic/NopTaskOut.txt', format=luigi.format.UTF8)
