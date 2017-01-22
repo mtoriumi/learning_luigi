@@ -70,10 +70,8 @@ class StartTask(luigi.Task):
 #        open_nop_task_target  = yield OpenNopTask()    # 空ファイルが作られる
 #        nop_task_target       = yield NopTask()        # 出力ファイルが作られないので永遠に復帰しない
 #        exception_task_target = yield ExceptionTask()　# 例外起きたら復帰不可能
-
         tasks = (SuccessTask(), OpenNopTask(), ErrorHandlingTask())
         task_targets = yield tasks
-
         results = zip(tasks, task_targets)
 
         with self.output().open('w') as fout:
