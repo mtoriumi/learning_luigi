@@ -21,8 +21,7 @@ class OpenNopTask(luigi.Task):
         return luigi.LocalTarget('./data/Dynamic/OpenNopTaskOut.txt', format=luigi.format.UTF8)
 
     def run(self):
-        with self.output().open('w') as fout:
-            pass
+        self.output().open('w').close()
 
 class NopTask(luigi.Task):
     """
