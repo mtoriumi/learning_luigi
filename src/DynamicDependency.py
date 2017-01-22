@@ -38,10 +38,6 @@ class ExceptionTask(luigi.Task):
     """
     例外で処理中断するタスク（例外が起きた場合は後続処理復帰不可）
     """
-    @property
-    def retry_count(self):
-        return 2
-
     def output(self):
         return luigi.LocalTarget('./data/Dynamic/ExceptionTaskOut.txt', format=luigi.format.UTF8)
 
