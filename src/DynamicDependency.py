@@ -84,10 +84,13 @@ class StartTask(luigi.Task):
 
             # 全部ファイルは返ってくるので、空ファイルかどうか判定し、空ならエラー扱いとする
             for result in results:
+                taskname = str(result[0])
                 if os.path.getsize(result[1].path):
-                    fout.write('{} is success\n'.format(str(result[0])))
+                    fout.write('{} is success\n'.format(taskname))
                 else:
                     fout.write('{} is failed\n'.format(str(result[0])))
 
 if __name__ == '__main__':
-    luigi.run(main_task_cls=StartTask)
+    if not luigi.run(main_task_cls=StartTask):
+        import sys
+        sys.exit(1)
