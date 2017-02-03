@@ -1,3 +1,0 @@
-SuccessTask() is success
-OpenNopTask() is failed
-ErrorHandlingTask() is failed
