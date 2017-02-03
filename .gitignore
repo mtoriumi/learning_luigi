@@ -1,4 +1,7 @@
+!.gitkeep
 .idea/
 .vagrant/
+data/*
+log/*
 Vagrantfile
 *-luigi-tmp-*
