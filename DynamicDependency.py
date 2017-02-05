@@ -47,6 +47,7 @@ class ExceptionTask(luigi.Task):
 
 class  ErrorHandlingTask(luigi.Task):
     """
+    プログラムエラーが起きるタスク
     なにかしらエラーが起きても処理を継続させたい場合は自らハンドリングが必要
     少なくとも、何かしらのファイルが返るか、例外が発生しないとタスクが無限ループするため、
     処理を継続させたい場合には、なにかしらのファイルの返却を要する
@@ -66,10 +67,20 @@ class StartTask(luigi.Task):
         return luigi.LocalTarget('./data/Dynamic/StartTaskOut.txt', format=luigi.format.UTF8)
 
     def run(self):
-#        success_task_target   = yield SuccessTask()
-#        open_nop_task_target  = yield OpenNopTask()    # 空ファイルが作られる
-#        nop_task_target       = yield NopTask()        # 出力ファイルが作られないので永遠に復帰しない
-#        exception_task_target = yield ExceptionTask()　# 例外起きたら復帰不可能
+        # 直列処理
+
+        # process success task
+        success_task_target   = yield SuccessTask()  # <= 正常に処理が完了する
+
+        # Open output file only task
+        # open_nop_task_target  = yield OpenNopTask()  # <= 空ファイルが作成され正常に処理が完了する
+
+        # Nop task
+        # nop_task_target       = yield NopTask()        # 出力ファイルが作られないので永遠に復帰しない
+
+        # exception_task_target = yield ExceptionTask()　# 例外起きたら復帰不可能
+
+        # 並列処理
         tasks = (SuccessTask(), OpenNopTask(), ErrorHandlingTask())
         task_targets = yield tasks
         results = zip(tasks, task_targets)

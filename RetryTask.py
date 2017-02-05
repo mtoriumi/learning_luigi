@@ -13,8 +13,6 @@ class RetryedTask(luigi.Task):
         return luigi.LocalTarget('./data/Retry/out.txt', format=luigi.format.UTF8)
 
     def run(self):
-        self.retry += 1
-        raise Exception('Test Exception. Retry Index %s for %s' % (self.retry, self.task_family))
         print(datetime.datetime.now())
         raise ValueError
         with self.output().open('w') as fout:
